@@ -1,3 +1,6 @@
+
+# Todas as instalações e importações necessárias para o script de nuvem de palavras e widget de upload
+
 !pip install wordcloud
 !pip install fileupload
 !pip install ipywidgets
@@ -11,6 +14,8 @@ from IPython.display import display
 import fileupload
 import io
 import sys
+
+# Esse é o uploader widget, para fazer o upload do arquivo de texto através de um botão de browser
 
 def _upload():
 
@@ -28,6 +33,11 @@ def _upload():
     display(_upload_widget)
 
 _upload()
+
+# Função que itera através das palavras em file_contents, remove a pontuação e conta a frequência de cada palavra. 
+# A função ignora maiúsculas e minúsculas, palavras que não contêm todos os alfabetos e 
+# palavras chatas como "e" ou "o". 
+# Em seguida, será usada na função generate_from_frequencies para gerar a nuvem de palavras.
 
 def calculate_frequencies(file_contents):
     # Here is a list of punctuations and uninteresting words you can use to process your text
@@ -62,6 +72,8 @@ def calculate_frequencies(file_contents):
     cloud = wordcloud.WordCloud()
     cloud.generate_from_frequencies(word_count)
     return cloud.to_array()
+
+# Exiba a imagem da nuvem de palavras
   
 myimage = calculate_frequencies(file_contents)
 plt.imshow(myimage, interpolation = 'nearest')
